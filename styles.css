@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;1,100&display=swap');
 
 :root{
     --primary-color: rgb(255, 0, 93);
@@ -8,12 +8,30 @@
 }
 .heading{
     text-align: center;
+    font-stretch: extra-expanded;
+}
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
 }
 #description{
     text-align: center;
-    padding-bottom: 4rem;
+    padding: 2rem 0rem 4rem 0rem;
     font-weight: 100;
     color: var(--gray-color);
+}
+h4 {
+    display: block;
+    margin-block-start: 0em;
+    margin-block-end: 0rem;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: lighter;
 }
 body{
     background-color: var(--secondary-color); 
