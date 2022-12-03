@@ -3,18 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <title>Is your birthday a palindrome?</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 <body> 
     <h1 class="heading">Is your Birthday a palindrome?</h1>
-    <label for="birthday">Enter your Birthday:</label>
-    <div>
-        <input type="date" id="birthdate-input">
+    <div class="container">
+        <h4 id="description" class="center-container">
+            Enter your Birthdate below and we will tell you whether it is a palindrome or not.
+        </h4>
+        <div class="label-birthday">
+            <label for="birthday" ">Enter your Birthday:</label>
+        </div>
+    
+        <div>
+            <input type="date" id="birthdate-input" >
+        </div>
+        <button id="check-button" class="primary-button">Check</button>
+        <div id="results"></div>
     </div>
-    <button id="check-button">Check</button>
-    <div id="results"></div>
+
+    <footer>
+        <div class="contact-info">
+            <p class="credit">
+            project by Aasim  2022©️
+            </p>
+            <li class="non-bullet">
+            <a target="_blank" href="https://linkedin.com/in/aasim-dongarkar-28b365231"><i class="fa-brands fa-linkedin"></i></a>
+            </li>
+            <li class="non-bullet">
+            <a href="https://twitter.com/dthree01"><i class="fa-brands fa-twitter"></i></a>
+            </li>
+            <li class="non-bullet">
+            <a href="https://github.com/aasimd"><i class="fa-brands fa-github"></i></a>
+            </li>
+        </div>
+        </li>
+        
+    </footer>
+
 
 
 
