@@ -2,36 +2,22 @@ var birthdate = document.querySelector("#birthdate-input");
 var checkButton = document.querySelector("#check-button");
 var results = document.querySelector("#results");
 
-function isPalindrome (str) {
-    var reverse = reversedStr(str);
-    //console.log(str === reverse) ;
-    return (str === reverse)   ;
+function reversedStr (str){
+    var splitStr = str.split("");
+    var reverseStr = splitStr.reverse();
+    var joinReverseStr = reverseStr.join("");
+    return joinReverseStr
 }
-
-function reversedStr(str) {
-    //console.log(str)
-    var strSplit = str.split("");
-    //console.log(strSplit);
-    var reverseStr = strSplit.reverse();
-    //console.log(reverseStr);
-    var reversedStrJoined = reverseStr.join("");
-    //console.log(reversedStrJoined);
-    return reversedStrJoined
+function isPalindrome(str){
+    return (reversedStr(str)===str)
 }
+function convertDateToStrDate (date){
+    var strDate = {day:'' , month:'', year:''} 
 
-
-var date = {
-    day : 12,
-    month : 11,
-    year : 2021
-}
-
-function convertDateToStrDate (date) {
-    var strDate = { day:'', month:'', year:''}
-    if (date.day < 10 ){
-        strDate.day = '0' + date.day
+    if (date.day < 10){
+        strDate.day = '0' + date.day;
     } else {
-        strDate.day = date.day.toString()
+        strDate.day = date.day.toString();
     }
     if (date.month < 10){
         strDate.month = '0' + date.month;
@@ -39,99 +25,112 @@ function convertDateToStrDate (date) {
         strDate.month = date.month.toString();
     }
     strDate.year = date.year.toString();
-    return strDate
+
+    return strDate;
 }
-
-function dateInAllFormats (date){
+function getDateInAllFormats (date) {
     var strDate = convertDateToStrDate(date);
-
     var ddmmyyyy = strDate.day + strDate.month + strDate.year;
     var mmddyyyy = strDate.month + strDate.day + strDate.year;
     var yyyymmdd = strDate.year + strDate.month + strDate.day;
     var ddmmyy = strDate.day + strDate.month + strDate.year.slice(-2);
-    var mmddyy = strDate.month +  strDate.day + strDate.year.slice(-2);
+    var mmddyy = strDate.month + strDate.day + strDate.year.slice(-2);
     var yymmdd = strDate.year.slice(-2) + strDate.month + strDate.day;
 
-    return [ ddmmyyyy, mmddyyyy, yyyymmdd, ddmmyy, mmddyy, yymmdd];
+    return [ddmmyyyy,mmddyyyy,yyyymmdd,ddmmyy,mmddyy,yymmdd];
 }
-
-function checkPalindromeForAllFormats (date) {
-    var dateFormats = dateInAllFormats(date);
-    var ifPalindrome = false;
-    for (i = 0 ; i < dateFormats.length ; i++){
+function checkPalindromeInAllDateFormats (date){
+    var dateFormats = getDateInAllFormats(date);
+    var palindrome = false;
+    for (let i=0 ; i < dateFormats.length ; i++){
         if (isPalindrome(dateFormats[i])){
-            ifPalindrome = true;
-            break;
+            palindrome = true;
         }
     }
-    return ifPalindrome;
-}
-
-function isLeapYear(year){
-    if (year % 400 === 0){
+    return palindrome
+} 
+function isLeapYear (year){
+    if (year%400 === 0){
         return true;
     }
-    if (year % 100 === 0){
+    if (year%100 === 0){
         return false;
     }
-    if (year % 4 === 0){
+    if (year%4 === 0){
         return true;
+    } else {
+        return false
     }
 }
-
 function getNextDate (date){
-    var day = 1 + date.day;
+    var day = date.day + 1;
     var month = date.month;
     var year = date.year;
-    var daysInMonth = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+    var daysInAMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
     if (month === 2){
         if (isLeapYear(year)){
-            if (day > 29) {
+            if (day>29){
                 day = 1;
-                month = month + 1;
-            }  
-        } else {
-            if ( day > 28){
-                day = 1;
-                month = month + 1;
+                month++;
             }
-        } 
-    } else {
-        if (day > daysInMonth[month - 1]){
-            day = 1;
-            month = 1 + month;
-
+        } else{
+            if (day>28){
+                day = 1;
+                month++;
+            }
         }
+    } else {
+        if (day > daysInAMonth[month - 1]){
+            day = 1;
+            month++ ;
+        } 
     }
-    if(month > 12){
+    if (month > 12){
         month = 1;
-        year = 1 + year;
-
+        year++ ;
     }
     return {day , month , year}
 }
-
-function nextPalindromeDate (date){
-    var ctr = 0;
+function getNextPalindromeDate(date){
+    var ctr = 0; 
     var nextDate = getNextDate(date);
-
     while(1){
-        ctr = ctr + 1;
-        if(checkPalindromeForAllFormats(nextDate)){
-            break
+        ctr++ ;
+        if (checkPalindromeInAllDateFormats(nextDate)){
+            break ; 
         } else {
             nextDate = getNextDate(nextDate);
         }
+    } 
+    return [ctr,nextDate]
+}
+function clickHandler (){
+    var input = birthdate.value;
+    if (input !== ''){
+        var dateInput = input.split("-")
+        var date = {
+        day : Number(dateInput[2]),
+        month : Number(dateInput[1]),
+        year : Number(dateInput[0])
     }
-
-    return { ctr , nextDate}
+    if (checkPalindromeInAllDateFormats(date)){
+        results.innerText = "YAY your Birthday is a Palindrome. 🤩"
+    } else {
+        var newDate = getNextPalindromeDate(date);
+        var ctr = newDate[0];
+        var nextPalindrome = newDate[1];
+        var nextDay = newDate[1].day;
+        var nextMonth = newDate[1].month;
+        var nextYear = newDate[1].year;
+        results.innerText = "Next Palindrome date is " + nextDay + '/' + nextMonth + '/' + nextYear + ' you missed it by ' + ctr + ' days. 🤐 '
+    }
+    }
+    else {
+        results.innerText = 'Please Enter Your Birthdate! 😐'
+    }
+    
 }
 
-function clickHandler ( ) {
-    console.log(convertDateToStrDate (date));
-    console.log(checkPalindromeForAllFormats (date));
-    console.log(getNextDate (date))
-    console.log(nextPalindromeDate (date))
-}
-checkButton.addEventListener("click", clickHandler)
+checkButton.addEventListener("click",clickHandler)
