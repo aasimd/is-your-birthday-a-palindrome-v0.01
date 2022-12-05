@@ -106,7 +106,11 @@ function getNextPalindromeDate(date){
     } 
     return [ctr,nextDate]
 }
+function resultsDelay(){
+    results.style.display="block"
+}
 function clickHandler (){
+    results.style.display="none"
     var input = birthdate.value;
     if (input !== ''){
         var dateInput = input.split("-")
@@ -116,18 +120,20 @@ function clickHandler (){
         year : Number(dateInput[0])
     }
     if (checkPalindromeInAllDateFormats(date)){
+        setTimeout(resultsDelay,2000);
         results.innerText = "YAY your Birthday is a Palindrome. 🤩"
     } else {
         var newDate = getNextPalindromeDate(date);
         var ctr = newDate[0];
-        var nextPalindrome = newDate[1];
         var nextDay = newDate[1].day;
         var nextMonth = newDate[1].month;
         var nextYear = newDate[1].year;
-        results.innerText = "Next Palindrome date is " + nextDay + '/' + nextMonth + '/' + nextYear + ' you missed it by ' + ctr + ' days. 🤐 '
+        setTimeout(resultsDelay,2000)
+        results.innerText = `Next Palindrome date is ${nextDay}/${nextMonth}/${nextYear}, you missed it by ${ctr} days. 🤐 `
     }
     }
     else {
+        results.style.display="block"
         results.innerText = 'Please Enter Your Birthdate! 😐'
     }
     
