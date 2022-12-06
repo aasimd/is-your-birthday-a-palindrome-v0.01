@@ -101,3 +101,6 @@ footer {
     right: 0;
     color: var(--dark-blue);
 }
+#loading-gif{
+    margin-top: 2rem ;
+}

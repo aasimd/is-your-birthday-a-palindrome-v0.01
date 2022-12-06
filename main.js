@@ -1,6 +1,7 @@
 var birthdate = document.querySelector("#birthdate-input");
 var checkButton = document.querySelector("#check-button");
 var results = document.querySelector("#results");
+var loadingGif = document.querySelector("#loading-gif");
 
 function reversedStr (str){
     var splitStr = str.split("");
@@ -107,9 +108,26 @@ function getNextPalindromeDate(date){
     return [ctr,nextDate]
 }
 function resultsDelay(){
+    loadingGif.style.display="none"
     results.style.display="block"
 }
+function loadingScreen(){
+    var loadingText = ["Loading","Loading.","Loading..","Loading..."]
+        setTimeout(function()
+        {loadingGif.innerText = loadingText[0]
+            setTimeout(function()
+            {loadingGif.innerText = loadingText[1]
+                setTimeout(function()
+                {loadingGif.innerText = loadingText[2]
+                    setTimeout(function()
+                    {loadingGif.innerText = loadingText[3]},
+                    500);},
+                500);},
+            500);},
+        200);       
+}
 function clickHandler (){
+    loadingGif.style.display="block"
     results.style.display="none"
     var input = birthdate.value;
     if (input !== ''){
@@ -120,7 +138,8 @@ function clickHandler (){
         year : Number(dateInput[0])
     }
     if (checkPalindromeInAllDateFormats(date)){
-        setTimeout(resultsDelay,2000);
+        loadingScreen
+        setTimeout(resultsDelay,2100);
         results.innerText = "YAY your Birthday is a Palindrome. 🤩"
     } else {
         var newDate = getNextPalindromeDate(date);
@@ -128,7 +147,9 @@ function clickHandler (){
         var nextDay = newDate[1].day;
         var nextMonth = newDate[1].month;
         var nextYear = newDate[1].year;
-        setTimeout(resultsDelay,2000)
+        loadingScreen()
+        setTimeout(resultsDelay,2100)
+
         results.innerText = `Next Palindrome date is ${nextDay}/${nextMonth}/${nextYear}, you missed it by ${ctr} days. 🤐 `
     }
     }
@@ -140,3 +161,8 @@ function clickHandler (){
 }
 
 checkButton.addEventListener("click",clickHandler)
+
+
+
+
+
