@@ -138,7 +138,7 @@ function clickHandler (){
         year : Number(dateInput[0])
     }
     if (checkPalindromeInAllDateFormats(date)){
-        loadingScreen
+        loadingScreen()
         setTimeout(resultsDelay,2100);
         results.innerText = "YAY your Birthday is a Palindrome. 🤩"
     } else {
