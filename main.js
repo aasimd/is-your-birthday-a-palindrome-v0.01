@@ -154,7 +154,8 @@ function clickHandler (){
     }
     }
     else {
-        results.style.display="block"
+        loadingGif.style.display="none";
+        results.style.display="block";
         results.innerText = 'Please Enter Your Birthdate! 😐'
     }
     
